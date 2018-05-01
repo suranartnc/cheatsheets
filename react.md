@@ -59,6 +59,65 @@ const numbersOver100 = numbers.filter(function(number) {
 // [150]
 ```
 
+## Modern JavaScript
+
+{: .-two-column}
+
+### Backtick strings
+
+```js
+const message = `Hello ${name}`
+```
+
+### Arrow Functions
+
+```js
+const greet = (name = 'Jerry') => {
+  return `Hello ${name}`
+}
+```
+
+### Destructuring
+
+#### Objects
+
+```js
+let { title, author } = {
+  title: 'React.js Essentials',
+  author: 'Suranart Niamcome'
+}
+```
+{: data-line="1"}
+
+#### Arrays
+
+```js
+const [first, second] = ['Nikola', 'Tesla']
+```
+{: data-line="1"}
+
+### Spread
+
+#### Object
+```js
+const options = {
+  ...defaults,
+  someKey: 'Overriding value'
+}
+```
+{: data-line="2"}
+
+#### Array
+
+```js
+const users = [
+  ...admins,
+  ...editors,
+  'New user'
+]
+```
+{: data-line="2,3"}
+
 ## Promises
 
 {: .-two-column}
@@ -92,6 +151,16 @@ doSomethingAsync()
   .catch(function(error) { 
     // handle programming errors
   })
+```
+
+### Using promises with Async / Await
+
+```js
+async function doMoreThing() {
+  const result = await doSomethingAsync()
+  // use result from async operation
+  ...
+}
 ```
 
 ## Fetch
