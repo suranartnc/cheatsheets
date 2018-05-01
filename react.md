@@ -59,12 +59,46 @@ const numbersOver100 = numbers.filter(function(number) {
 // [150]
 ```
 
+## Promises
+
+{: .-two-column}
+
+### Creating promises
+
+```js
+function doSomethingAsync() {
+  return new Promise((resolve, reject) => {
+    // do async task
+
+    if (error) {
+      reject(error)     // failure
+    } else {
+      resolve(result)   // success
+    }
+  })
+}
+```
+{: data-line="6,8"}
+
+### Using promises
+
+```js
+doSomethingAsync()
+  .then(function(result) { 
+    // use result from async operation
+  }, function(reason) { 
+    // handle operational errors
+  })
+  .catch(function(error) { 
+    // handle programming errors
+  })
+```
+
 ## Fetch
 
 {: .-two-column}
 
 ### Fetch
-{: .-prime}
 
 ```js
 import 'isomorphic-unfetch'
