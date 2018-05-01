@@ -59,6 +59,39 @@ const numbersOver100 = numbers.filter(function(number) {
 // [150]
 ```
 
+## Fetch
+
+{: .-two-column}
+
+### Fetch
+{: .-prime}
+
+```js
+import 'isomorphic-unfetch'
+```
+{: .-setup}
+
+```js
+fetch('/data.json')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+  })
+```
+{: data-line="4"}
+
+### Fetch options
+
+```js
+fetch('/data.json', {
+  method: 'post',
+  body: JSON.stringify(...),
+  headers: {
+    'Accept': 'application/json'
+  }
+})
+```
+
 React Components
 ----------
 {: .-three-column}
