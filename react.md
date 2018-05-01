@@ -12,13 +12,54 @@ keywords:
   - componentDidMount()
   - props/state
   - dangerouslySetInnerHTML
-intro: |
-  [React](https://reactjs.org/) is a JavaScript library for building user interfaces. This guide targets React v15 to v16.
 ---
 
 {%raw%}
 
-Components
+## Placeholder
+
+## JavaScript Arrays
+
+{: .-two-column}
+
+### Adding items
+
+```js
+const list = [a, b, c, d, e]
+```
+{: .-setup}
+
+```js
+list.push(X)            // list == [_,_,_,_,_,X]
+list.unshift(X)         // list == [X,_,_,_,_,_]
+```
+
+```js
+list.concat([X,Y])      // return [_,_,_,_,_,X,Y]
+```
+
+### Map / Filter
+
+```js
+const numbers = [50, 100, 150]
+```
+{: .-setup}
+
+```js
+const numbersWithCurrency = numbers.map(function(number) {
+  return number + ' Baht'
+})
+// ["50 Baht", "100 Baht", "150 Baht"]
+```
+
+```js
+const numbersOver100 = numbers.filter(function(number) {
+  return number > 100
+})
+// [150]
+```
+
+React Components
 ----------
 {: .-three-column}
 
@@ -142,7 +183,7 @@ return <div style={style}></div>
 return <div style={{ margin: 0, padding: 0 }}></div>
 ```
 
-Lifecycle
+React Lifecycle
 ---------
 {: .-two-column}
 
@@ -170,7 +211,7 @@ Add DOM event handlers, timers (etc) on `componentDidMount()`, then remove them 
 
 Called when props or states changed.
 
-Advanced
+Advanced React
 ---------
 {: .-two-column}
 
