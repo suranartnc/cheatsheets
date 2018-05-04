@@ -157,9 +157,6 @@ React Lifecycle
 | `componentWillUnmount()` | Return memory |
 | --- | --- |
 
-Set initial the state on `constructor()`.
-Add DOM event handlers, timers (etc) on `componentDidMount()`, then remove them on `componentWillUnmount()`.
-
 ### Updating
 
 | Method | Description |
@@ -167,8 +164,6 @@ Add DOM event handlers, timers (etc) on `componentDidMount()`, then remove them 
 | `shouldComponentUpdate` *(newProps, newState)* | Return false to skip `render()` |
 | `render()` |
 | `componentDidUpdate` *(prevProps, prevState)* | Fetch data / Operate on DOM  |
-
-Called when props or states changed.
 
 Advanced React
 ---------
