@@ -48,15 +48,13 @@ const numbers = [50, 100, 150]
 ```js
 const numbersWithCurrency = numbers.map(function(number) {
   return number + ' Baht'
-})
-// ["50 Baht", "100 Baht", "150 Baht"]
+}) // ["50 Baht", "100 Baht", "150 Baht"]
 ```
 
 ```js
 const numbersOver100 = numbers.filter(function(number) {
   return number > 100
-})
-// [150]
+}) // [150]
 ```
 
 ## Modern JavaScript
@@ -87,36 +85,68 @@ let { title, author } = {
   author: 'Suranart Niamcome'
 }
 ```
-{: data-line="1"}
 
 #### Arrays
 
 ```js
 const [first, second] = ['Nikola', 'Tesla']
 ```
-{: data-line="1"}
 
 ### Spread
 
 #### Object
 ```js
-const options = {
-  ...defaults,
-  someKey: 'Overriding value'
-}
+const options = { ...defaults, someKey: 'Overriding value' }
 ```
-{: data-line="2"}
 
 #### Array
 
 ```js
-const users = [
-  ...admins,
-  ...editors,
-  'New user'
-]
+const users = [ ...admins, ...editors, 'New user' ]
 ```
-{: data-line="2,3"}
+
+## Modules
+
+{: .-two-column}
+
+### Default exports (one per module)
+
+```js
+myLibrary.js
+```
+{: .-setup}
+
+```js
+export default function() { ··· }
+// module.exports = ···
+```
+
+```js
+import myLibrary from './myLibrary.js'
+// const myLibrary = require('./myLibrary.js')
+```
+
+`import` is the new `require()` and `export` is the new `module.exports`
+
+### Named exports (several per module)
+
+```js
+myHelpers.js
+```
+{: .-setup}
+
+```js
+export function mymethod1() { ··· }
+export function mymethod2() { ··· }
+export function mymethod3() { ··· }
+// module.exports.mymethod = ···
+```
+
+```js
+import { mymethod1, mymethod2 } from './myHelpers.js'
+// const mymethod1 = require('./myHelpers.js').mymethod1
+// const mymethod2 = require('./myHelpers.js').mymethod2
+```
 
 ## Promises
 
@@ -127,8 +157,7 @@ const users = [
 ```js
 function doSomethingAsync() {
   return new Promise((resolve, reject) => {
-    // do async task
-
+    // do async task...
     if (error) {
       reject(error)     // failure
     } else {
@@ -153,16 +182,6 @@ doSomethingAsync()
   })
 ```
 
-### Using promises with Async / Await
-
-```js
-async function doMoreThing() {
-  const result = await doSomethingAsync()
-  // use result from async operation
-  ...
-}
-```
-
 ## Fetch
 
 {: .-two-column}
@@ -177,9 +196,7 @@ import 'isomorphic-unfetch'
 ```js
 fetch('/data.json')
   .then(response => response.json())
-  .then(data => {
-    console.log(data)
-  })
+  .then(data => { console.log(data) })
 ```
 {: data-line="4"}
 
@@ -189,9 +206,7 @@ fetch('/data.json')
 fetch('/data.json', {
   method: 'post',
   body: JSON.stringify(...),
-  headers: {
-    'Accept': 'application/json'
-  }
+  headers: { 'Accept': 'application/json' }
 })
 ```
 

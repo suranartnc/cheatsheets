@@ -178,11 +178,9 @@ class MyComponent extends React.Component {
     this.state = { keywords: '' }
     this.handleInputChanged = this.handleInputChanged.bind(this)
   }
-
   handleInputChanged(event) {
     this.setState({ keywords: event.target.value })
   }
-
   render() {
     return (
       <div>
@@ -195,7 +193,7 @@ class MyComponent extends React.Component {
   }
 }
 ```
-{: data-line="5,9,16,17"}
+{: data-line="5,8,14,15"}
 
 ### ES7 Class Components
 
