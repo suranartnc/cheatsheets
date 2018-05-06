@@ -22,12 +22,12 @@ React Components
 ----------
 {: .-three-column}
 
-### Function components
+### Functional components
 
 ```jsx
 function Hello(props) {
   return (
-    <div className='message-box'>
+    <div className="message-box">
       Hello {props.name}
     </div>
   )
@@ -37,7 +37,7 @@ function Hello(props) {
 
 ```jsx
 const el = document.body
-ReactDOM.render(<Hello name='John' />, el)
+ReactDOM.render(<Hello name="John" />, el)
 ```
 
 Functional components have no state. Also, their `props` are passed as the first parameter to a function.
@@ -48,7 +48,7 @@ Functional components have no state. Also, their `props` are passed as the first
 class Hello extends React.Component {
   render() {
     return (
-      <div className='message-box'>
+      <div className="message-box">
         Hello {this.props.name}
       </div>
     )
@@ -70,7 +70,7 @@ constructor(props) {
 {: data-line="3"}
 
 ```jsx
-this.setState({ username: 'rstacruz' })
+this.setState({ username: 'suranart' })
 ```
 
 ```jsx
@@ -96,7 +96,7 @@ class TodoList extends React.Component {
     return (
       <ul>
         {items.map(item => {
-          return <TodoItem key={item.key} item={item} />
+          return <TodoItem key={item.id} item={item} />
         })}
       </ul>
     )

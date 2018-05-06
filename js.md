@@ -70,7 +70,7 @@ const message = `Hello ${name}`
 ### Arrow Functions
 
 ```js
-const greet = (name = 'Jerry') => {
+const greet = (name = 'Tae') => {
   return `Hello ${name}`
 }
 ```
@@ -80,7 +80,7 @@ const greet = (name = 'Jerry') => {
 #### Objects
 
 ```js
-let { title, author } = {
+const { title, author } = {
   title: 'React.js Essentials',
   author: 'Suranart Niamcome'
 }
@@ -96,7 +96,7 @@ const [first, second] = ['Nikola', 'Tesla']
 
 #### Object
 ```js
-const options = { ...defaults, someKey: 'Overriding value' }
+const options = { ...defaultOptions, someKey: 'Overriding value' }
 ```
 
 #### Array
@@ -139,7 +139,7 @@ myHelpers.js
 export function mymethod1() { ··· }
 export function mymethod2() { ··· }
 export function mymethod3() { ··· }
-// module.exports.mymethod = ···
+// module.exports.mymethod1 = ···
 ```
 
 ```js

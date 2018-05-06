@@ -32,7 +32,7 @@ import { createStore } from 'redux'
 ```js
 // Reducer for counter app
 function reducer(state = 0, action) {
-  switch (action.type) {
+  switch(action.type) {
     case 'INCREMENT':
       return state + 1
     case 'DECREMENT':
@@ -69,7 +69,7 @@ store.subscribe(() => {
 
 Dispatch actions to change the store's state.
 
-### Combining reducers
+### Combining multiple reducers
 
 ```js
 import { createStore, combineReducers } from 'redux'
@@ -86,11 +86,11 @@ const reducer = combineReducers({
 const store = createStore(reducer)
 ```
 
-Combines multiple reducers into one reducer function.
+A complex app may have multiple reducers. Use `combineReducers()` to combine multiple reducers into one reducer function.
 
-## React Redux
+## Usage with React
 
-### Provider
+### Wrapping App with Provider
 
 ```js
 import { Provider } from 'react-redux'
@@ -105,6 +105,8 @@ React.render(
   mountNode
 )
 ```
+{: data-line="2,3,4"}
+
 
 The `<Provider>` component makes the store available in your React components. You need this so you can use `connect()`.
 
@@ -117,43 +119,47 @@ import { connect } from 'react-redux'
 {: .-setup}
 
 ```js
-function App({ dispatch, message }) {
+function App({ dispatch, counter }) {
   return (
-    <div onClick={() => {
-      dispatch({ 
-        type: 'click', 
-        message: 'hello' 
-      })
-    }}>
-      {message}
+    <div>
+      <p>{counter}</p>
+      <button onClick={() => { dispatch({ type: 'INCREMENT' })}}>
+        +
+      </button>
+      <button onClick={() => { dispatch({ type: 'DECREMENT' })}}>
+        -
+      </button>
     </div>
   )
 }
 
 function selector(state) {
   return { 
-    message: state.message 
+    counter: state 
   }
 }
 
 export default connect(selector)(App)
 ```
+`connect()` maps data in the store as component's props and also inject `dispatch()`.
 
-## Middleware
+## Middlewares
 
 ### Creating a middleware
 
 ```js
 const myMiddleware = store => next => action { 
-  return next(action) 
+  // Before dispatch action
+  const result = next(action) 
+  // After dispatch action
+  return result
 }
 ```
 
-Middlewares are simply decorators for `dispatch()` to allow you to take
-different kinds of actions, and to perform different tasks when receiving
+Middlewares are simply decorators for `dispatch()` to allow you to perform different tasks when receiving
 actions.
 
-### Applying middleware
+### Applying middlewares
 
 ```js
 import { createStore, applyMiddleware } from 'redux'
@@ -165,5 +171,6 @@ const enhancer = applyMiddleware(myMiddleware1, myMiddleware2, ...)
 
 const store = createStore(reducer, {}, enhancer)
 ```
+Each middleware will be executed from left to right.
 
 {%endraw%}
