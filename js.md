@@ -166,7 +166,6 @@ function doSomethingAsync() {
   })
 }
 ```
-{: data-line="6,8"}
 
 ### Using promises
 
@@ -198,7 +197,6 @@ fetch('/data.json')
   .then(response => response.json())
   .then(data => { console.log(data) })
 ```
-{: data-line="4"}
 
 ### Fetch options
 

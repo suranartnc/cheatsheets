@@ -33,7 +33,6 @@ function Hello(props) {
   )
 }
 ```
-{: data-line="4"}
 
 ```jsx
 const el = document.body
@@ -55,7 +54,6 @@ class Hello extends React.Component {
   }
 }
 ```
-{: data-line="5"}
 
 Class components can have state and lifecycle. Use `this.props` to access properties passed to the component.
 
@@ -67,7 +65,6 @@ constructor(props) {
   this.state = { username: '' }
 }
 ```
-{: data-line="3"}
 
 ```jsx
 this.setState({ username: 'suranart' })
@@ -79,7 +76,6 @@ render() {
   ···
 }
 ```
-{: data-line="2"}
 
 Use states (`this.state`) to manage dynamic data.
 
@@ -103,7 +99,6 @@ class TodoList extends React.Component {
   }
 }
 ```
-{: data-line="6,7,8"}
 
 ### Conditionals
 
@@ -193,7 +188,6 @@ class MyComponent extends React.Component {
   }
 }
 ```
-{: data-line="5,8,14,15"}
 
 ### ES7 Class Components
 
@@ -217,6 +211,5 @@ class MyComponent extends React.Component {
   }
 }
 ```
-{: data-line="2,4,5,6"}
 
 {%endraw%}

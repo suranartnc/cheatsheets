@@ -105,8 +105,6 @@ React.render(
   mountNode
 )
 ```
-{: data-line="2,3,4"}
-
 
 The `<Provider>` component makes the store available in your React components. You need this so you can use `connect()`.
 
