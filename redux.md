@@ -45,8 +45,6 @@ function reducer(state = 0, action) {
 const store = createStore(reducer)
 ```
 
-A store is made from a reducer function, which takes the current `state`, and returns a new `state` depending on the `action` it was given.
-
 ### Using a store
 
 ```js
@@ -67,8 +65,6 @@ store.subscribe(() => {
 })
 ```
 
-Dispatch actions to change the store's state.
-
 ### Combining multiple reducers
 
 ```js
@@ -85,8 +81,6 @@ const reducer = combineReducers({
 
 const store = createStore(reducer)
 ```
-
-A complex app may have multiple reducers. Use `combineReducers()` to combine multiple reducers into one reducer function.
 
 ## Usage with React
 
@@ -105,9 +99,6 @@ React.render(
   mountNode
 )
 ```
-
-The `<Provider>` component makes the store available in your React components. You need this so you can use `connect()`.
-
 
 ### Mapping state to props
 
@@ -139,7 +130,6 @@ function selector(state) {
 
 export default connect(selector)(App)
 ```
-`connect()` maps data in the store as component's props and also inject `dispatch()`.
 
 ## Middlewares
 
@@ -154,9 +144,6 @@ const myMiddleware = store => next => action {
 }
 ```
 
-Middlewares are simply decorators for `dispatch()` to allow you to perform different tasks when receiving
-actions.
-
 ### Applying middlewares
 
 ```js
@@ -169,6 +156,5 @@ const enhancer = applyMiddleware(myMiddleware1, myMiddleware2, ...)
 
 const store = createStore(reducer, {}, enhancer)
 ```
-Each middleware will be executed from left to right.
 
 {%endraw%}

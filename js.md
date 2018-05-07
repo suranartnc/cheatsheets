@@ -77,31 +77,34 @@ const greet = (name = 'Tae') => {
 
 ### Destructuring
 
-#### Objects
 
 ```js
+// Objects
+
 const { title, author } = {
   title: 'React.js Essentials',
   author: 'Suranart Niamcome'
 }
 ```
 
-#### Arrays
 
 ```js
+// Arrays
+
 const [first, second] = ['Nikola', 'Tesla']
 ```
 
 ### Spread
 
-#### Object
 ```js
+// Objects
+
 const options = { ...defaultOptions, someKey: 'Overriding value' }
 ```
 
-#### Array
-
 ```js
+// Arrays
+
 const users = [ ...admins, ...editors, 'New user' ]
 ```
 
@@ -112,40 +115,27 @@ const users = [ ...admins, ...editors, 'New user' ]
 ### Default exports (one per module)
 
 ```js
-myLibrary.js
-```
-{: .-setup}
+// myLibrary.js
 
-```js
 export default function() { ··· }
-// module.exports = ···
 ```
 
 ```js
 import myLibrary from './myLibrary.js'
-// const myLibrary = require('./myLibrary.js')
 ```
-
-`import` is the new `require()` and `export` is the new `module.exports`
 
 ### Named exports (several per module)
 
 ```js
-myHelpers.js
-```
-{: .-setup}
+// myHelpers.js
 
-```js
 export function mymethod1() { ··· }
 export function mymethod2() { ··· }
 export function mymethod3() { ··· }
-// module.exports.mymethod1 = ···
 ```
 
 ```js
 import { mymethod1, mymethod2 } from './myHelpers.js'
-// const mymethod1 = require('./myHelpers.js').mymethod1
-// const mymethod2 = require('./myHelpers.js').mymethod2
 ```
 
 ## Promises

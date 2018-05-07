@@ -39,8 +39,6 @@ const el = document.body
 ReactDOM.render(<Hello name="John" />, el)
 ```
 
-Functional components have no state. Also, their `props` are passed as the first parameter to a function.
-
 ### Class Components
 
 ```jsx
@@ -54,8 +52,6 @@ class Hello extends React.Component {
   }
 }
 ```
-
-Class components can have state and lifecycle. Use `this.props` to access properties passed to the component.
 
 ### States
 
@@ -76,8 +72,6 @@ render() {
   ···
 }
 ```
-
-Use states (`this.state`) to manage dynamic data.
 
 JSX patterns
 ------------
