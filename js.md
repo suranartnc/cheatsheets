@@ -80,7 +80,6 @@ const greet = (name = 'Tae') => {
 
 ```js
 // Objects
-
 const { title, author } = {
   title: 'React.js Essentials',
   author: 'Suranart Niamcome'
@@ -90,7 +89,6 @@ const { title, author } = {
 
 ```js
 // Arrays
-
 const [first, second] = ['Nikola', 'Tesla']
 ```
 
@@ -98,13 +96,11 @@ const [first, second] = ['Nikola', 'Tesla']
 
 ```js
 // Objects
-
 const options = { ...defaultOptions, someKey: 'Overriding value' }
 ```
 
 ```js
 // Arrays
-
 const users = [ ...admins, ...editors, 'New user' ]
 ```
 
@@ -116,7 +112,6 @@ const users = [ ...admins, ...editors, 'New user' ]
 
 ```js
 // myLibrary.js
-
 export default function() { ··· }
 ```
 
@@ -128,7 +123,6 @@ import myLibrary from './myLibrary.js'
 
 ```js
 // myHelpers.js
-
 export function mymethod1() { ··· }
 export function mymethod2() { ··· }
 export function mymethod3() { ··· }
