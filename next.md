@@ -70,12 +70,6 @@ function MyComponent() {
 ### getInitialProps
 
 ```js
-import axios from 'axios
-const api = 'https://api.github.com/repos/zeit/next.js'
-```
-{: .-setup}
-
-```js
 class MyPage extends React.Component {
   static async getInitialProps() {
     const response = await axios.get(api)
@@ -105,7 +99,7 @@ class MyPage extends React.Component {
 }
 ```
 
-## Custom...
+## Misc.
 {: .-two-column}
 
 ### Document
@@ -124,7 +118,7 @@ export default class MyDocument extends Document {
         <Head>
           <style>{`body { margin: 0 } /* custom! */`}</style>
         </Head>
-        <body className="custom_class">
+        <body>
           <Main />
           <NextScript />
         </body>
@@ -177,9 +171,7 @@ function EntryPage() {
 }
 ```
 
-## Styling
-
-### Built-in
+### Styling
 ```js
 function MyComponent() {
   return (
