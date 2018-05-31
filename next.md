@@ -95,6 +95,7 @@ class MyPage extends React.Component {
 class MyPage extends React.Component {
   static async getInitialProps(context) {
     const { pathname, asPath, query, req, res } = context
+    const response = await axios.get(`${api}?id=${query.id}`)
     // ...
   }
 
@@ -176,7 +177,9 @@ function EntryPage() {
 }
 ```
 
-### Styling
+## Styling
+
+### Built-in
 ```js
 function MyComponent() {
   return (
@@ -209,7 +212,7 @@ function Logo() {
 }
 ```
 
-## Configurations
+<!-- ## Configurations
 {: .-two-column}
 
 ### Next.js + Webpack
@@ -246,6 +249,6 @@ File: ./.babelrc
   "presets": ["next/babel"],
   "plugins": []
 }
-```
+``` -->
 
 {%endraw%}
