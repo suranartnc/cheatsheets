@@ -12,7 +12,7 @@ weight: -10
 
 ## Placeholder
 
-## Routing
+## Next.js
 
 {: .-two-column}
 
