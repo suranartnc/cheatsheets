@@ -18,83 +18,69 @@ keywords:
 
 ## Placeholder
 
-React Components
+Components
 ----------
 {: .-three-column}
 
-### Functional components
+### Create a component
 
 ```jsx
+import React from 'react'
+
 function Hello(props) {
   return (
-    <div className="message-box">
-      Hello {props.name}
+    <div>
+      Hello, {props.name}
     </div>
   )
 }
 ```
 
+### Render the component
+
 ```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+
 const el = document.body
 ReactDOM.render(<Hello name="John" />, el)
 ```
 
-### Class Components
+### Styling
 
 ```jsx
-class Hello extends React.Component {
-  render() {
-    return (
-      <div className="message-box">
-        Hello {this.props.name}
-      </div>
-    )
-  }
+const style = { margin: 0, padding: 0 }
+
+function Hello(props) {
+  return (
+    <div style={style}>
+      Hello, {props.name}
+    </div>
+  )
 }
 ```
 
-### States
-
-```jsx
-constructor(props) {
-  super(props)
-  this.state = { username: '' }
-}
-```
-
-```jsx
-this.setState({ username: 'suranart' })
-```
-
-```jsx
-render() {
-  this.state.username
-  ···
-}
-```
-
-JSX patterns
+JSX Expressions
 ------------
 {: .-two-column}
 
 ### Lists
 
 ```jsx
-class TodoList extends React.Component {
-  render() {
-    const { items } = this.props
-    return (
-      <ul>
-        {items.map(item => {
-          return <TodoItem key={item.id} item={item} />
-        })}
-      </ul>
-    )
-  }
+function BookList(props) {
+  const { books } = props
+
+  return (
+    <ul>
+      {books.map(book => {
+        return <BookItem key={book.id} book={book} />
+      })}
+    </ul>
+  )
 }
 ```
 
-### Conditionals
+### Conditional Rendering (Inline)
 
 ```jsx
 <div>
@@ -102,107 +88,146 @@ class TodoList extends React.Component {
 </div>
 ```
 
-### Short-circuit evaluation
+
+
+### Conditional Rendering
+
+
+```jsx
+function BookList(props) {
+  const { books } = props
+
+  if (books.length === 0) {
+    return <div>There is no book.</div>
+  }
+
+  return (
+    <ul>
+      {books.map(book => {
+        return <BookItem key={book.id} book={book} />
+      })}
+    </ul>
+  )
+}
+```
+
+
+### Short-circuit Evaluation
 
 ```jsx
 <div>
-  {showPopup && <Popup />}
+  {showMyComponent && <MyComponent />}
 </div>
 ```
 
-### Inner HTML
 
+
+
+
+
+State
+---------
+{: .-two-column}
+
+### Events
 ```jsx
-function getHTML() { 
-  return "<p>...</p>"; 
+function MyComponent() {
+  const fetchData = function() {
+    console.log('Fetch data')
+  }
+
+  return (
+    <div>
+      <button onClick={fetchData}>Fetch</button>
+    </div>
+  );
 }
-
-<div dangerouslySetInnerHTML={{__html: getHTML()}} />
 ```
 
-### Styling
-
+### State
 ```jsx
-var style = { margin: 0, padding: 0 }
-return <div style={style}></div>
+import React, { useState } from 'react'
+
+function MyComponent() {
+  const [counter, setCounter] = useState(0)
+  const increaseCounter = function() {
+    setCounter(counter + 1)
+  }
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <button onClick={increaseCounter}>Count</button>
+    </div>
+  );
+}
 ```
 
-```jsx
-return <div style={{ margin: 0, padding: 0 }}></div>
-```
-
-React Lifecycle
----------
-{: .-two-column}
-
-### Mounting
-
-| Method | Description |
-| --- | --- |
-| `constructor` _(props)_ | Initialize state |
-| `render()` |
-| `componentDidMount()` | Fetch data / Operate on DOM |
-| --- | --- |
-| `componentWillUnmount()` | Return memory |
-| --- | --- |
-
-### Updating
-
-| Method | Description |
-| --- | --- |
-| `shouldComponentUpdate` *(newProps, newState)* | Return false to skip `render()` |
-| `render()` |
-| `componentDidUpdate` *(prevProps, prevState)* | Fetch data / Operate on DOM  |
-
-Advanced React
----------
-{: .-two-column}
+Updating the state is not allowed inside the main body of a function component, put your code inside an event handler or an effect instead.
 
 ### Controlled Components
 
 ```jsx
-class MyComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { keywords: '' }
-    this.handleInputChanged = this.handleInputChanged.bind(this)
+import React, { useState } from 'react'
+
+function MyComponent() {
+  const [keyword, setKeyword] = useState('')
+
+  const onKeywordChanged = function(event) {
+    setKeyword(event.target.value)
   }
-  handleInputChanged(event) {
-    this.setState({ keywords: event.target.value })
-  }
-  render() {
-    return (
-      <div>
-        <input 
-          value={this.state.keywords}
-          onChange={this.handleInputChanged}
-        />
-      </div>
-    )
-  }
+
+  return (
+    <div>
+      <input value={keyword} onChange={onKeywordChanged} />
+    </div>
+  )
 }
 ```
 
-### ES7 Class Components
+Side Effects
+---------
+{: .-two-column}
 
+### Create an effect
 ```jsx
-class MyComponent extends React.Component {
-  state = { keywords: '' }
+import React, { useState, useEffect } from 'react'
 
-  handleInputChanged = (event) => {
-    this.setState({ keywords: event.target.value })
-  }
+function MyComponent() {
+  const [counter, setCounter] = useState(0)
 
-  render() {
-    return (
-      <div>
-        <input 
-          value={this.state.keywords}
-          onChange={this.handleInputChanged}
-        />
-      </div>
-    )
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setCounter(counter + 1)
+    }, 1000)
+  })
+
+  return <div>{counter}</div>
+}
+```
+
+A side effect is an expensive task such as data fetching, DOM manipulation, subscription, etc.
+
+### Effect with Cleanup and Dependency
+```jsx
+import React, { useState, useEffect } from 'react'
+
+function MyComponent() {
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    // Effect (After DOM update)
+    const timeoutId = setTimeout(() => {
+      setCounter(counter + 1)
+    }, 1000)
+
+    return () => {
+      // Cleanup (After unmount + Before next update)
+      clearTimeout(timeoutId)
+    }
+  }, [counter]) // Dependency
+
+  return <div>{counter}</div>
 }
 ```
 
