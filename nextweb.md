@@ -12,50 +12,47 @@ weight: -10
 
 ## Placeholder
 
-## Next.js
+## Named Routes
 
 {: .-two-column}
 
-### Routes
+### Route Configuration
 
 ```bash
-File: ./routes.js
+File: /router/routes/_main.js
 ```
 {: .-setup}
 
 ```js
 const routes = [
   {
-    name: 'home',
-    pattern: '/',
-    page: 'index'
+    pattern: '/',               // URL
+    name: 'home',               // Route Name
+    page: 'index'               // Page Filename
   }, {
-    name: 'about',
-    pattern: '/about/',
+    pattern: '/contact-us',
+    name: 'contact-us',
   }, {
-    name: 'entry',
-    pattern: '/:id(\\d+)/',
+    pattern: '/article/:id',    // Use ":" to make it a parameter
+    name: 'article-detail',
   }
 ]
 ```
 
 
-### Link
+### Links
 
 ```js
-import { Link } from './routes'
-```
-{: .-setup}
+import Link from '@link'
 
-```js
 function MyComponent() {
   return (
     <div>
       <Link route="home">
         <a>Home</a>
       </Link>
-      <Link route="entry" params={{ id: 1234 }}>
-        <a>Entry: 1234</a>
+      <Link route="article-detail" params={{ id: 1234 }}>
+        <a>Article ID: 1234</a>
       </Link>
     </div>
   )
@@ -67,180 +64,151 @@ function MyComponent() {
 
 {: .-two-column}
 
-### getInitialProps
+### Server-side
 
-```js
-class MyPage extends React.Component {
-  static async getInitialProps() {
-    const response = await axios.get(api)
-    return { data: response.data }
-  }
-
-  render() {
-    const { data } = this.props
-    // ...
-  }
-}
-```
-
-### Context
-
-```js
-class MyPage extends React.Component {
-  static async getInitialProps(context) {
-    const { pathname, asPath, query, req, res } = context
-    const response = await axios.get(`${api}?id=${query.id}`)
-    // ...
-  }
-
-  render() {
-    // ...
-  }
-}
-```
-
-## Misc.
-{: .-two-column}
-
-### Document
 ```bash
-File: ./pages/_document.js
+File: /components/articleList/index.js
 ```
 {: .-setup}
 
 ```js
-import Document, { Head, Main, NextScript } from 'next/document'
+import * as ArticleService from '@features/article/services'
 
-export default class MyDocument extends Document {
-  render() {
-    return (
-      <html>
-        <Head>
-          <style>{`body { margin: 0 } /* custom! */`}</style>
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </html>
-    )
-  }
+function ArticleListPage({ data }) {
+  // ...
+}
+
+ArticleListPage.getInitialProps = async (context) => {
+  const { query: { keyword } } = context
+  const data = await ArticleService.getArticlesByKeyword(keyword)
+
+  return { data }
 }
 ```
 
-### App
+### Client-side
 
 ```bash
-File: ./pages/_app.js
+File: /components/articleList/ArticleListSection.js
 ```
 {: .-setup}
 
 ```js
-import App, { Container } from 'next/app'
+import { useRouter } from 'next/router'
+import { Fetch } from '@lib/api'
+import * as ArticleService from '@features/article/services'
 
-class MyApp extends App {
-  render() {
-    const { Component, pageProps } = this.props
+function ArticleListSection() {
+  const { query: { keyword } } = useRouter()
 
-    return (
-      <Container>
-        <Component {...pageProps} />
-      </Container>
-    )
-  }
-}
-```
-
-### Head
-
-```bash
-import Head from 'next/head'
-```
-{: .-setup}
-
-```js
-function EntryPage() {
   return (
     <div>
-      <Head>
-        <title>Entry: 1234</title>
-      </Head>
-      <p>Hello world!</p>
+      <Fetch service={() => ArticleService.getArticlesByKeyword(keyword)}>
+        {({ data }) => <ArticleList data={data} />}
+      </Fetch>
     </div>
   )
 }
 ```
 
-### Styling
+### Head Management
+
+```bash
+File: /components/articleDetail/index.js
+```
+{: .-setup}
+
+```js
+ArticleDetailPage.getInitialProps = async (context) => {
+  const { query: { id } } = context
+  const data = await ArticleService.getArticleById(id)
+
+  return { 
+    data,
+    title: data.title,
+    meta: {
+      description: data.description,
+      keywords: data.keywords
+    }
+  }
+}
+```
+
+
+## Styling
+{: .-two-column}
+
+### Local Scoped
 ```js
 function MyComponent() {
   return (
-    <div>
-      Hello world
-      <p>scoped!</p>
-
-      <style jsx>{`
-        p { color: blue; }
-        div { background: red; }
-      `}</style>
-
-      <style global jsx>{`
-        body { background: black; }
-      `}</style>
-
+    <div css={{ color: '#ff0000', paddingTop: '10px' }}>
+      Some Text
     </div>
   )
 }
 ```
 
-### Static File
+### Global Scoped
+
+```bash
+File: /lib/styles/GlobalStyles.js
+```
+{: .-setup}
+
 ```js
-function Logo() {
+import { css, Global } from '@emotion/core'
+
+const baseStyles = css`
+  /* 
+  Add global styles here... 
+
+  html { ... }
+  body { ... }
+  a { ... }
+  */
+`
+```
+
+## Grids
+{: .-two-column}
+
+### Basic
+
+```js
+import { Flex, Box } from '@grid'
+
+function MyComponent() {
   return (
-    <header>
-      <img src="/static/logo.png" alt="Logo" />
-    </header>
+    <Flex>
+      <Box width={1/2}>
+        Width 50%
+      </Box>
+      <Box width={1/2}>
+        Width 50%
+      </Box>
+    </Flex>
   )
 }
 ```
 
-<!-- ## Configurations
-{: .-two-column}
-
-### Next.js + Webpack
-
-```bash
-File: ./next.config.js
-```
-{: .-setup}
+### Responsive
 
 ```js
-const isProd = process.env.NODE_ENV === 'production'
+import { Flex, Box } from '@grid'
 
-module.exports = {
-  distDir: 'build',
-  assetPrefix: isProd ? 'https://cdn.mydomain.com' : '',
-  webpack: (config, { buildId, dev, isServer, defaultLoaders }) => {
-    // Perform customizations to webpack config
-
-    // Important: return the modified config
-    return config
-  }
+function MyComponent() {
+  return (
+    <Flex>
+      <Box width={[1, 2/3]}>
+        Width 100% (Mobile) | Width 66.66% (Desktop)
+      </Box>
+      <Box width={[1, 1/3]}>
+        Width 100% (Mobile) | Width 33.33% (Desktop)
+      </Box>
+    </Flex>
+  )
 }
 ```
-
-### Babel
-```bash
-File: ./.babelrc
-```
-{: .-setup}
-
-
-```js
-{
-  "presets": ["next/babel"],
-  "plugins": []
-}
-``` -->
 
 {%endraw%}
