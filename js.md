@@ -61,47 +61,50 @@ const numbersOver100 = numbers.filter(function(number) {
 
 {: .-two-column}
 
-### Backtick strings
+### Block Scoped Declarations
 
 ```js
-const message = `Hello ${name}`
+let counter = 0
+counter++
 ```
 
-### Arrow Functions
+```js
+const counter = 0
+counter++               // Error: "counter" is read-only
+```
+
+Both ***let*** and ***const*** are scoped to ***{}***.
+
+### Template Literals
 
 ```js
-const greet = (name = 'Tae') => {
-  return `Hello ${name}`
-}
+const name = 'JavaScript'
+const message = `Hello, ${name}`
 ```
 
 ### Destructuring
 
-
 ```js
 // Objects
-const { title, author } = {
-  title: 'React.js Essentials',
+const book = {
+  title: 'JavaScript Essentials',
   author: 'Suranart Niamcome'
 }
-```
 
+const { title, author } = book
+```
 
 ```js
 // Arrays
 const [first, second] = ['Nikola', 'Tesla']
 ```
 
-### Spread
+### Arrow Functions
 
 ```js
-// Objects
-const options = { ...defaultOptions, someKey: 'Overriding value' }
-```
-
-```js
-// Arrays
-const users = [ ...admins, ...editors, 'New user' ]
+const greet = (name = 'JavaScript') => {
+  return `Hello, ${name}`
+}
 ```
 
 ## Modules
@@ -151,45 +154,33 @@ function doSomethingAsync() {
 }
 ```
 
+A Promise wraps asynchronous code into an object that has a method ***then()*** to get the result of code execution.
+
 ### Using promises
 
 ```js
 doSomethingAsync()
-  .then(function(result) { 
+  .then(result => { 
     // use result from async operation
-  }, function(reason) { 
-    // handle operational errors
   })
-  .catch(function(error) { 
-    // handle programming errors
+  .catch(error => { 
+    // handle error
   })
 ```
 
-## Fetch
-
-{: .-two-column}
-
-### Fetch
+### Fetch API using Axios
 
 ```js
-import 'isomorphic-unfetch'
-```
-{: .-setup}
+import axios from 'axios
+const apiUrl = 'https://api.github.com/repos/facebook/react'
 
-```js
-fetch('/data.json')
-  .then(response => response.json())
-  .then(data => { console.log(data) })
-```
-
-### Fetch options
-
-```js
-fetch('/data.json', {
-  method: 'post',
-  body: JSON.stringify(...),
-  headers: { 'Accept': 'application/json' }
-})
+axios.get(apiUrl)
+  .then(response => { 
+    console.log(response.data)
+  })
+  .catch(error => { 
+    console.log(error)
+  })
 ```
 
 {%endraw%}
