@@ -12,194 +12,126 @@ weight: -10
 
 ## Placeholder
 
-## Next.js
-
-{: .-two-column}
-
-### Routes
-
-```bash
-File: ./routes.js
-```
-{: .-setup}
-
-```js
-const routes = [
-  {
-    name: 'home',
-    pattern: '/',
-    page: 'index'
-  }, {
-    name: 'about',
-    pattern: '/about/',
-  }, {
-    name: 'entry',
-    pattern: '/:id(\\d+)/',
-  }
-]
-```
-
-
-### Link
-
-```js
-import { Link } from './routes'
-```
-{: .-setup}
-
-```js
-function MyComponent() {
-  return (
-    <div>
-      <Link route="home">
-        <a>Home</a>
-      </Link>
-      <Link route="entry" params={{ id: 1234 }}>
-        <a>Entry: 1234</a>
-      </Link>
-    </div>
-  )
-}
-```
-
-
 ## Data Fetching
 
 {: .-two-column}
 
-### getInitialProps
+### Page Component
 
-```js
-class MyPage extends React.Component {
-  static async getInitialProps() {
-    const response = await axios.get(api)
-    return { data: response.data }
-  }
-
-  render() {
-    const { data } = this.props
-    // ...
-  }
-}
-```
-
-### Context
-
-```js
-class MyPage extends React.Component {
-  static async getInitialProps(context) {
-    const { pathname, asPath, query, req, res } = context
-    const response = await axios.get(`${api}?id=${query.id}`)
-    // ...
-  }
-
-  render() {
-    // ...
-  }
-}
-```
-
-## Misc.
-{: .-two-column}
-
-### Document
 ```bash
-File: ./pages/_document.js
+File: /pages/repository/[repoName].js
 ```
 {: .-setup}
 
 ```js
-import Document, { Head, Main, NextScript } from 'next/document'
+function MyPage({ data }) {
+  const { full_name, stargazers_count } = data
+
+  return <div>{full_name} stars: {stargazers_count}</div>
+}
+```
+
+### Set Props for a Page
+
+```js
+MyPage.getInitialProps = async (context) => {
+  const { query: { repoName } } = context
+
+  const apiURL = `https://api.github.com/repos/${repoName}`
+  const response = await axios.get(apiURL)
+
+  return { data: response.data }
+}
+```
+
+## Document Component
+{: .-two-column}
+
+```bash
+File: /pages/_document.js
+```
+{: .-setup}
+
+```js
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <html>
+      <Html>
         <Head>
-          <style>{`body { margin: 0 } /* custom! */`}</style>
+          /* Custom code */
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }
 ```
 
-### App
+## App Component
+{: .-two-column}
+
+### Default
 
 ```bash
-File: ./pages/_app.js
+File: /pages/_app.js
 ```
 {: .-setup}
 
 ```js
-import App, { Container } from 'next/app'
+import App from 'next/app'
+
+class MyApp extends App {
+  render() {
+    const { Component, pageProps } = this.props
+
+    return <Component {...pageProps} />
+  }
+}
+```
+
+App component never unmounted.
+
+### Custom for Layout
+
+```js
+import App from 'next/app'
 
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
 
     return (
-      <Container>
+      <Layout>
         <Component {...pageProps} />
-      </Container>
+      </Layout>
     )
   }
 }
+
+function Layout({ children }) {
+  return <div className="layout">{children}</div>
+}
 ```
 
-### Head
+
+## Static File Serving
 
 ```bash
-import Head from 'next/head'
+Image file: /public/logo.png
 ```
 {: .-setup}
 
 ```js
-function EntryPage() {
-  return (
-    <div>
-      <Head>
-        <title>Entry: 1234</title>
-      </Head>
-      <p>Hello world!</p>
-    </div>
-  )
-}
-```
-
-### Styling
-```js
-function MyComponent() {
-  return (
-    <div>
-      Hello world
-      <p>scoped!</p>
-
-      <style jsx>{`
-        p { color: blue; }
-        div { background: red; }
-      `}</style>
-
-      <style global jsx>{`
-        body { background: black; }
-      `}</style>
-
-    </div>
-  )
-}
-```
-
-### Static File
-```js
 function Logo() {
   return (
-    <header>
-      <img src="/static/logo.png" alt="Logo" />
-    </header>
+    <a href="#">
+      <img src="/logo.png" alt="Logo" />
+    </a>
   )
 }
 ```
