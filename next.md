@@ -19,7 +19,7 @@ weight: -10
 ### Page Component
 
 ```bash
-File: /pages/repository/[repoName].js
+File: /pages/repository/[name].js
 ```
 {: .-setup}
 
@@ -35,9 +35,9 @@ function MyPage({ data }) {
 
 ```js
 MyPage.getInitialProps = async (context) => {
-  const { query: { repoName } } = context
+  const { query: { name } } = context
 
-  const apiURL = `https://api.github.com/repos/${repoName}`
+  const apiURL = `https://api.github.com/repos/${name}`
   const response = await axios.get(apiURL)
 
   return { data: response.data }

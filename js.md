@@ -1,5 +1,5 @@
 ---
-title: React.js
+title: JavaScript
 category: React
 layout: 2017/sheet
 ads: true

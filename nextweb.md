@@ -1,5 +1,5 @@
 ---
-title: Next.js
+title: NextWeb.js
 category: Next.js
 layout: 2017/sheet
 ads: true
@@ -60,38 +60,28 @@ function MyComponent() {
 ```
 
 
-## Data Fetching
+## Data Fetching using Services
 
 {: .-two-column}
 
 ### Server-side
 
-```bash
-File: /components/articleList/index.js
-```
-{: .-setup}
-
 ```js
 import * as ArticleService from '@features/article/services'
 
-function ArticleListPage({ data }) {
+function ArticleSearchResultsPage({ data }) {
   // ...
 }
 
-ArticleListPage.getInitialProps = async (context) => {
+ArticleSearchResultsPage.getInitialProps = async (context) => {
   const { query: { keyword } } = context
   const data = await ArticleService.getArticlesByKeyword(keyword)
-
   return { data }
 }
 ```
 
 ### Client-side
 
-```bash
-File: /components/articleList/ArticleListSection.js
-```
-{: .-setup}
 
 ```js
 import { useRouter } from 'next/router'
@@ -113,16 +103,10 @@ function ArticleListSection() {
 
 ### Head Management
 
-```bash
-File: /components/articleDetail/index.js
-```
-{: .-setup}
-
 ```js
 ArticleDetailPage.getInitialProps = async (context) => {
   const { query: { id } } = context
   const data = await ArticleService.getArticleById(id)
-
   return { 
     data,
     title: data.title,
@@ -160,13 +144,7 @@ File: /lib/styles/GlobalStyles.js
 import { css, Global } from '@emotion/core'
 
 const baseStyles = css`
-  /* 
-  Add global styles here... 
-
-  html { ... }
-  body { ... }
-  a { ... }
-  */
+  /* Add global styles here... */
 `
 ```
 

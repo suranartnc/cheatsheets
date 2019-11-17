@@ -18,7 +18,7 @@ keywords:
 
 ## Placeholder
 
-Components
+React Components
 ----------
 {: .-three-column}
 
@@ -96,11 +96,9 @@ function BookList(props) {
 ```jsx
 function BookList(props) {
   const { books } = props
-
   if (books.length === 0) {
     return <div>There is no book.</div>
   }
-
   return (
     <ul>
       {books.map(book => {
@@ -129,22 +127,7 @@ State
 ---------
 {: .-two-column}
 
-### Events
-```jsx
-function MyComponent() {
-  const fetchData = function() {
-    console.log('Fetch data')
-  }
-
-  return (
-    <div>
-      <button onClick={fetchData}>Fetch</button>
-    </div>
-  );
-}
-```
-
-### State
+### Update state using click event
 ```jsx
 import React, { useState } from 'react'
 
@@ -165,7 +148,7 @@ function MyComponent() {
 
 Updating the state is not allowed inside the main body of a function component, put your code inside an event handler or an effect instead.
 
-### Controlled Components
+### Get a value from text input
 
 ```jsx
 import React, { useState } from 'react'
@@ -220,7 +203,6 @@ function MyComponent() {
     const timeoutId = setTimeout(() => {
       setCounter(counter + 1)
     }, 1000)
-
     return () => {
       // Cleanup (After unmount + Before next update)
       clearTimeout(timeoutId)
